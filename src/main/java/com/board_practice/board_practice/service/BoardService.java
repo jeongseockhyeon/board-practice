@@ -49,4 +49,10 @@ public class BoardService {
             return null;
         }
     }
+
+    public void update(Long id,BoardDTO boardDTO) {
+        Optional<BoardEntity> savedBoardEntity = boardRepository.findById(id);
+        BoardEntity boardEntity = BoardEntity.toUpdateEntity(savedBoardEntity.get(), boardDTO);
+        boardRepository.save(boardEntity);
+    }
 }
