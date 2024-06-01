@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -23,4 +25,11 @@ public class BoardController {
                 .body("저장되었습니다");
     }
 
+    @GetMapping("/")
+    public ResponseEntity<?> findAll() {
+        List<BoardDTO> boardDTOList = boardService.findAll();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(boardDTOList);
+    }
 }
