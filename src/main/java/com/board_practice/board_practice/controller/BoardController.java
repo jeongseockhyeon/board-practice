@@ -54,4 +54,12 @@ public class BoardController {
                 .body("수정되었습니다");
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id){
+        boardService.delete(id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("삭제되었습니다");
+    }
+
 }
