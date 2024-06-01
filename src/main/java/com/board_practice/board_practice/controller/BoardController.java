@@ -46,11 +46,12 @@ public class BoardController {
                 .status(HttpStatus.OK)
                 .body(boardDTO);
     }
-    @PostMapping("/update/{id}")
+    @PutMapping ("/update/{id}")
     public ResponseEntity<?> update(@PathVariable Long id,@RequestBody BoardDTO boardDTO) {
         boardService.update(id, boardDTO);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body("수정되었습니다");
     }
+
 }
