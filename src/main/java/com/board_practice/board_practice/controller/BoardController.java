@@ -32,4 +32,18 @@ public class BoardController {
                 .status(HttpStatus.OK)
                 .body(boardDTOList);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id) {
+        /*
+        * 해당 게시글의 조회수 증가
+        * 게시글 데이터를 가져와서 상세조회*/
+
+        boardService.updateHits(id);
+        BoardDTO boardDTO = boardService.findById(id);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(boardDTO);
+    }
 }
