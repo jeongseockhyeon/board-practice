@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -37,17 +39,22 @@ public class BoardController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id) {
+    public ResponseEntity<?> findById(@PathVariable Long id,@PageableDefault(page=1) Pageable pageable) {
         /*
         * 해당 게시글의 조회수 증가
         * 게시글 데이터를 가져와서 상세조회*/
 
         boardService.updateHits(id);
         BoardDTO boardDTO = boardService.findById(id);
+        int pageNumber = pageable.getPageNumber();
+
+        Map<String, Object> detailResponse = new HashMap<>();
+        detailResponse.put("boardDTO", boardDTO);
+        detailResponse.put("pageNumber", pageNumber);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(boardDTO);
+                .body(detailResponse);
     }
     @PutMapping ("/update/{id}")
     public ResponseEntity<?> update(@PathVariable Long id,@RequestBody BoardDTO boardDTO) {
