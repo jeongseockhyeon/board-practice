@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestBody BoardDTO boardDTO){
+    public ResponseEntity<?> save(@ModelAttribute BoardDTO boardDTO) throws IOException {
         boardService.save(boardDTO);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
