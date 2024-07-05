@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-public class CommetDTO {
+public class CommentDTO {
     private Long id;
     private String commentWriter;
     private String commentContents;
