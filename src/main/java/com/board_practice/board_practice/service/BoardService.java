@@ -109,7 +109,7 @@ public class BoardService {
         //page 위치에 있는 값은 0부터 시작
         Page<BoardEntity> boardEntities =
                 boardRepository.findAll(PageRequest.of(page,pageLimit, Sort.by(Sort.Direction.DESC,"id")));
-        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getId(),board.getBoardWriter(),board.getBoardTitle(), board.getBoardHits(), board.getBoardCreatedTime()));
+        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getId(),board.getBoardWriter(),board.getBoardTitle(), board.getBoardHits(), board.getCreatedTime()));
 
         return boardDTOS;
 
