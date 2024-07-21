@@ -1,7 +1,9 @@
 package com.board_practice.board_practice.controller;
 
 import com.board_practice.board_practice.dto.BoardDTO;
+import com.board_practice.board_practice.dto.CommentDTO;
 import com.board_practice.board_practice.service.BoardService;
+import com.board_practice.board_practice.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +24,7 @@ import java.util.Map;
 public class BoardController {
 
     private final BoardService boardService;
+    private final CommentService commentService;
 
     @PostMapping("/save")
     public ResponseEntity<?> save(@ModelAttribute BoardDTO boardDTO) throws IOException {
@@ -49,9 +52,13 @@ public class BoardController {
         BoardDTO boardDTO = boardService.findById(id);
         int pageNumber = pageable.getPageNumber();
 
+        /* 댓글 목록 가져오기 */
+        List<CommentDTO> commentDTOList = commentService.findAll(id);
+
         Map<String, Object> detailResponse = new HashMap<>();
         detailResponse.put("boardDTO", boardDTO);
         detailResponse.put("pageNumber", pageNumber);
+        detailResponse.put("commentList",commentDTOList);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
